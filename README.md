@@ -1,7 +1,13 @@
 # FLog
 Fast Async Log for .NET Core
 
-##### JSON Config File
+### Nuget
+```json
+Install-Package FLogCore
+```
+
+
+### JSON Config File
 ```json
 {
   "FLog": {
@@ -28,7 +34,7 @@ Fast Async Log for .NET Core
 }
 ```
 
-##### How to use in Console Application
+### How to use in Console Application
 ```csharp
 class Program
 {
@@ -47,8 +53,8 @@ class Program
 ```
 
 
-##### How to use in Web Application
-###### Config
+### How to use in Web Application
+#### Config
 ```csharp
 public class Program
 {
@@ -68,7 +74,7 @@ public class Program
             .UseStartup<Startup>();
 }
 ```
-###### Action
+#### Action
 ```csharp
 [Route("api/[controller]")]
 [ApiController]
