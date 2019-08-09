@@ -1,0 +1,23 @@
+{
+  "FLog": {
+    "async": true,
+    "repositories": [
+      {
+        "name": "Default",
+        "formatterString": "%date [%thread] %level %logger - %message%newline",
+        "handlers": [
+          {
+            "type": "Console",
+            "level": "Info"
+          },
+          {
+            "type": "File",
+            "level": "Error",
+            "folder": "logs",
+            "fileName": "[yyyyMMdd].log"
+          }
+        ]
+      }
+    ]
+  }
+}
