@@ -1,0 +1,3 @@
+Build Project
+nuget pack FLog.csproj
+nuget push FLogCore.1.0.0.1.nupkg  -source nuget.org
