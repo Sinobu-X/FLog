@@ -10,45 +10,24 @@ namespace FLog.Extensions
         private readonly FLog.Logger _log;
 
         public FLogLogger(string name){
-            _log = FLog.LogManager.GetRepository().GetLogger(name);
+            _log = FLog.LogManager.GetLogger(name);
         }
 
         public IDisposable BeginScope<TState>(TState state){
             return new NoopDisposable();
         }
-        
+
         private class NoopDisposable : IDisposable
         {
-            public void Dispose()
-            {
+            public void Dispose(){
             }
         }
 
         public bool IsEnabled(Microsoft.Extensions.Logging.LogLevel logLevel){
-            return true;
-            var rep = FLog.LogManager.GetRepository(_log.RepositoryName);
-            if (rep == null){
-                return false;
-            }
-            
-            switch (logLevel){
-                case Microsoft.Extensions.Logging.LogLevel.Critical:
-                    return rep.Level <= FLog.LogLevel.Critical;
-                case Microsoft.Extensions.Logging.LogLevel.Error:
-                    return rep.Level <= FLog.LogLevel.Error;
-                case Microsoft.Extensions.Logging.LogLevel.Warning:
-                    return rep.Level <= FLog.LogLevel.Warning;
-                case Microsoft.Extensions.Logging.LogLevel.Information:
-                    return rep.Level <= FLog.LogLevel.Information;
-                case Microsoft.Extensions.Logging.LogLevel.Debug:
-                    return rep.Level <= FLog.LogLevel.Debug;
-                case Microsoft.Extensions.Logging.LogLevel.Trace:
-                    return rep.Level <= FLog.LogLevel.Trace;
-                case Microsoft.Extensions.Logging.LogLevel.None:
-                    return rep.Level <= FLog.LogLevel.None;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(logLevel));
-            }
+            return LogManager.HasHandlers(new LogData(){
+                LoggerName = _log.Name,
+                Level = ConvertLogLevel(logLevel)
+            });
         }
 
         public void Log<TState>(
@@ -91,6 +70,27 @@ namespace FLog.Extensions
                     _log.Warning($"Encountered unknown log level {logLevel}, writing out as Info.");
                     _log.Info(message, exception);
                     break;
+            }
+        }
+
+        private FLog.LogLevel ConvertLogLevel(Microsoft.Extensions.Logging.LogLevel logLevel){
+            switch (logLevel){
+                case Microsoft.Extensions.Logging.LogLevel.Critical:
+                    return FLog.LogLevel.Critical;
+                case Microsoft.Extensions.Logging.LogLevel.Error:
+                    return FLog.LogLevel.Error;
+                case Microsoft.Extensions.Logging.LogLevel.Warning:
+                    return FLog.LogLevel.Warning;
+                case Microsoft.Extensions.Logging.LogLevel.Information:
+                    return FLog.LogLevel.Information;
+                case Microsoft.Extensions.Logging.LogLevel.Debug:
+                    return FLog.LogLevel.Debug;
+                case Microsoft.Extensions.Logging.LogLevel.Trace:
+                    return FLog.LogLevel.Trace;
+                case Microsoft.Extensions.Logging.LogLevel.None:
+                    return FLog.LogLevel.None;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(logLevel));
             }
         }
 

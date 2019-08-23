@@ -5,22 +5,13 @@ namespace FLog
 {
     public static class LogHelper
     {
-        public static string BuildLog(LogFormatter formatter, string formatterString,
-            LogRepository repository, LogData logData){
+        public static string BuildLog(LogFormatter formatter, string formatterString, LogData logData){
             if (formatter != null){
                 return formatter(logData);
             }
 
             if (!string.IsNullOrEmpty(formatterString)){
                 return BuildLogByString(formatterString, logData);
-            }
-
-            if (repository.Formatter != null){
-                return repository.Formatter(logData);
-            }
-
-            if (!string.IsNullOrEmpty(repository.FormatterString)){
-                return BuildLogByString(repository.FormatterString, logData);
             }
 
             if (LogManager.Formatter != null){

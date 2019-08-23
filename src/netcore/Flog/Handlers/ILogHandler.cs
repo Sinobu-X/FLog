@@ -5,7 +5,11 @@ namespace FLog.Handlers
 {
     public interface ILogHandler
     {
-        LogLevel Level{ get; set; } 
-        Task<bool> Write(LogRepository repository, List<LogData> items);
+        LogLevel Level{ get; set; }
+        List<string> Includes{ get; set; }
+        List<string> Excludes{ get; set; }
+        LogFormatter Formatter{ get; set; }
+        string FormatterString{ get; set; }
+        Task<bool> Write(List<LogData> items);
     }
 }

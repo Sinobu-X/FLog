@@ -17,6 +17,8 @@ namespace FlogConsoleAppTest
             _log.Info("Hello World!");
             _log.Warning("Warning Test");
             _log.Error("Error Test");
+            
+            new DBTest().Test();
 
             while (true){
                 _log.Info("Press Y to test speed.");

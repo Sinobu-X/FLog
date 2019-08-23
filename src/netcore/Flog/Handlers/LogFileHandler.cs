@@ -9,13 +9,15 @@ namespace FLog.Handlers
 {
     public class LogFileHandler : ILogHandler
     {
-        public string Folder{ get; set; }
-        public string FileName{ get; set; }
         public LogLevel Level{ get; set; } = LogLevel.Information;
         public LogFormatter Formatter{ get; set; }
         public string FormatterString{ get; set; }
+        public List<string> Includes{ get; set; }
+        public List<string> Excludes{ get; set; }
+        public string Folder{ get; set; }
+        public string FileName{ get; set; }
 
-        public async Task<bool> Write(LogRepository repository, List<LogData> items){
+        public async Task<bool> Write(List<LogData> items){
             var fileName = FileName;
             if (string.IsNullOrEmpty(fileName)){
                 fileName = "[yyyyMMdd].log";
@@ -44,7 +46,7 @@ namespace FLog.Handlers
 
                 var sb = new StringBuilder();
                 foreach (var item in items){
-                    sb.Append(LogHelper.BuildLog(Formatter, FormatterString, repository, item));
+                    sb.Append(LogHelper.BuildLog(Formatter, FormatterString, item));
                 }
 
                 using (var sw = new StreamWriter(Path.Combine(Folder, fileName), true, Encoding.UTF8)){

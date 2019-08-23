@@ -10,9 +10,10 @@ namespace FLog.Handlers
         public LogLevel Level{ get; set; } = LogLevel.Information;
         public LogFormatter Formatter{ get; set; }
         public string FormatterString{ get; set; }
+        public List<string> Includes{ get; set; }
+        public List<string> Excludes{ get; set; }
 
-        public async Task<bool> Write(LogRepository repository, List<LogData> items){
-            Task.Delay(1000);
+        public Task<bool> Write(List<LogData> items){
             var sb = new StringBuilder();
             var isFirst = true;
             var lastLevel = LogLevel.None;
@@ -29,11 +30,11 @@ namespace FLog.Handlers
                 }
 
                 lastLevel = item.Level;
-                sb.Append(LogHelper.BuildLog(Formatter, FormatterString, repository, item));
+                sb.Append(LogHelper.BuildLog(Formatter, FormatterString, item));
             }
 
             WriteInner(lastLevel, sb.ToString());
-            return true;
+            return Task.FromResult(true);
         }
 
         private void WriteInner(LogLevel level, string message){
