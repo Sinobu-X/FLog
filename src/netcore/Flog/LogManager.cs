@@ -223,7 +223,7 @@ namespace FLog
         }
         
         private static bool BelongTo(this ILogHandler logHandler, LogData logData){
-            if (logData.Level < logHandler.Level){
+            if (logData.ForceWrite == false && logData.Level < logHandler.Level){
                 return false;
             }
 

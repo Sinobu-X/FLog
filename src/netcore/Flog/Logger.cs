@@ -31,14 +31,15 @@ namespace FLog
             });
         }
 
-        public void Info(string message, Exception ex = null){
+        public void Info(string message, Exception ex = null, bool forceWrite = false){
             Write(new LogData(){
                 LoggerName = Name,
                 Level = LogLevel.Information,
                 Message = message,
                 ThreadId = Thread.CurrentThread.ManagedThreadId,
                 Time = DateTime.Now,
-                Error = ex
+                Error = ex,
+                ForceWrite = forceWrite
             });
         }
 

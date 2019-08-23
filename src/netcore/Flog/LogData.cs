@@ -10,5 +10,6 @@ namespace FLog
         public LogLevel Level;
         public string Message;
         public Exception Error;
+        public bool ForceWrite;
     }
 }
