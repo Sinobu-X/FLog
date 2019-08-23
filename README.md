@@ -12,22 +12,40 @@ Install-Package FLogCore
 {
   "FLog": {
     "async": true,
-    "repositories": [
+    "formatterString": "%date [%thread] %level %logger - %message%newline",
+    "handlers": [
       {
-        "name": "Default",
-        "formatterString": "%date [%thread] %level %logger - %message%newline",
-        "handlers": [
-          {
-            "type": "Console",
-            "level": "Info"
-          },
-          {
-            "type": "File",
-            "level": "Error",
-            "folder": "logs",
-            "fileName": "[yyyyMMdd].log"
-          }
+        "type": "Console",
+        "level": "Info",
+        "includes": [
+          "*"
+        ],
+        "excludes": [
         ]
+      },
+      {
+        "type": "File",
+        "level": "Error",
+        "includes": [
+          "*"
+        ],
+        "excludes": [
+          "FlogConsoleAppTest.DBTest"
+        ],
+        "folder": "logs",
+        "fileName": "[yyyyMMdd].main.log"
+      },
+      {
+        "type": "File",
+        "level": "Info",
+        "formatterString": "%date - %message%newline",
+        "includes": [
+          "FlogConsoleAppTest.DBTest"
+        ],
+        "excludes": [
+        ],
+        "folder": "logs",
+        "fileName": "[yyyyMMdd].db.log"
       }
     ]
   }
