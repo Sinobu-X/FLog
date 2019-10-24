@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Concurrent;
-using System.IO;
 using Microsoft.Extensions.Logging;
 
 namespace FLog.Extensions
@@ -9,7 +9,14 @@ namespace FLog.Extensions
         private readonly ConcurrentDictionary<string, ILogger> _loggers =
             new ConcurrentDictionary<string, ILogger>();
 
+        private readonly Func<Exception, bool> _exceptionFilter;
+
         public FLoggerProvider(){
+            _exceptionFilter = null;
+        }
+
+        public FLoggerProvider(Func<Exception, bool> exceptionFilter){
+            _exceptionFilter = exceptionFilter;
         }
 
         public ILogger CreateLogger(string categoryName){
@@ -21,7 +28,7 @@ namespace FLog.Extensions
         }
 
         private ILogger CreateLoggerImplementation(string name){
-            return new FLogLogger(name);
+            return new FLogLogger(name, _exceptionFilter);
         }
     }
 }

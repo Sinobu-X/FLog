@@ -8,9 +8,11 @@ namespace FLog.Extensions
     internal class FLogLogger : ILogger
     {
         private readonly FLog.Logger _log;
+        private readonly Func<Exception, bool> _exceptionFilter;
 
-        public FLogLogger(string name){
+        public FLogLogger(string name, Func<Exception, bool> exceptionFilter){
             _log = FLog.LogManager.GetLogger(name);
+            _exceptionFilter = exceptionFilter;
         }
 
         public IDisposable BeginScope<TState>(TState state){
@@ -37,6 +39,10 @@ namespace FLog.Extensions
             Exception exception,
             Func<TState, Exception, string> formatter){
             if (!IsEnabled(logLevel)){
+                return;
+            }
+
+            if (_exceptionFilter != null && _exceptionFilter(exception)){
                 return;
             }
 
