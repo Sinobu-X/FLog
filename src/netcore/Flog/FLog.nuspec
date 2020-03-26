@@ -16,7 +16,9 @@
     <tags>Fast Async Log for .NET Core</tags>
     <dependencies>
       <group targetFramework="netcoreapp2.1">
-        <dependency id="Microsoft.AspNetCore.App" version="2.1.0"/>
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0"/>
+        <dependency id="Microsoft.Extensions.Logging" version="2.2.0"/>
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="2.2.0"/>
       </group>
     </dependencies>
   </metadata>
