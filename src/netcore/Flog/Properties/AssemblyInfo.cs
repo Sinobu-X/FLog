@@ -5,8 +5,8 @@
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sinobu-X")]
 [assembly: AssemblyProduct("FLogCore")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("1.0.2.0")]
+[assembly: AssemblyVersion("1.0.3.0")]

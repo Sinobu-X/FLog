@@ -94,8 +94,10 @@ namespace FLog
                 case "Debug":
                     return LogLevel.Debug;
                 case "Info":
+                case "Information":
                     return LogLevel.Information;
                 case "Warn":
+                case "Warning":
                     return LogLevel.Warning;
                 case "Error":
                     return LogLevel.Error;
