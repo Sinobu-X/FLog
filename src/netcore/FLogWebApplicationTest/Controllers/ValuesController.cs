@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FLog;
 using FLog.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FLogWebApplicationTest.Controllers
 {
@@ -12,12 +13,17 @@ namespace FLogWebApplicationTest.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private static readonly Logger _logger = LogManager.GetLogger(typeof(ValuesController));
+        private readonly ILogger<ValuesController> _logger;
+
+        public ValuesController(ILogger<ValuesController> logger) {
+            _logger = logger;
+        }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get(){
-            _logger.Info("Test Get");
+            _logger.LogInformation("Test Get");
+            _logger.LogDebug("Debug Test");
             return new string[]{"value1", "value2"};
         }
 

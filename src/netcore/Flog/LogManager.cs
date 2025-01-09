@@ -115,6 +115,33 @@ namespace FLog
                         throw new Exception("Wrong data in FLog json file.\n" +
                                             "Invalid level [" + levelString + "]");
                     }
+                    
+                    //maxLevel
+                    var maxLevelString = handlerNode.GetValue("maxLevel", "");
+                    if ("All".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.None;
+                    }
+                    else if ("Trace".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Trace;
+                    }
+                    else if ("Debug".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Debug;
+                    }
+                    else if ("Info".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Information;
+                    }
+                    else if ("Warning".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Warning;
+                    }
+                    else if ("Error".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Error;
+                    }
+                    else if ("Critical".Equals(maxLevelString, StringComparison.OrdinalIgnoreCase)){
+                        handler.MaxLevel = LogLevel.Critical;
+                    }
+                    else{
+                        handler.MaxLevel = LogLevel.Critical;
+                    }
 
                     //includes
                     handler.Includes = new List<string>();
@@ -142,6 +169,9 @@ namespace FLog
                             continue;
                         }
                         else if ("level".Equals(key, StringComparison.OrdinalIgnoreCase)){
+                            continue;
+                        }
+                        else if ("maxLevel".Equals(key, StringComparison.OrdinalIgnoreCase)){
                             continue;
                         }
                         else if ("includes".Equals(key, StringComparison.OrdinalIgnoreCase)){
@@ -224,6 +254,9 @@ namespace FLog
         
         private static bool BelongTo(this ILogHandler logHandler, LogData logData){
             if (logData.ForceWrite == false && logData.Level < logHandler.Level){
+                return false;
+            }
+            if (logData.ForceWrite == false && logData.Level > logHandler.MaxLevel){
                 return false;
             }
 

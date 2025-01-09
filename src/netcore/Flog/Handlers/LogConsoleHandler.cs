@@ -8,6 +8,7 @@ namespace FLog.Handlers
     public class LogConsoleHandler : ILogHandler
     {
         public LogLevel Level{ get; set; } = LogLevel.Information;
+        public LogLevel MaxLevel{ get; set; } = LogLevel.Critical;
         public LogFormatter Formatter{ get; set; }
         public string FormatterString{ get; set; }
         public List<string> Includes{ get; set; }

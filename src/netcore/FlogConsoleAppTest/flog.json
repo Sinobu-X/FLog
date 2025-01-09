@@ -5,7 +5,17 @@
     "handlers": [
       {
         "type": "Console",
+        "level": "Warning",
+        "includes": [
+          "*"
+        ],
+        "excludes": [
+        ]
+      },
+      {
+        "type": "Console",
         "level": "Info",
+        "maxLevel": "Info",
         "includes": [
           "*"
         ],

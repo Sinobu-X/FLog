@@ -8,7 +8,15 @@
         "handlers": [
           {
             "type": "Console",
-            "level": "Info"
+            "level": "Warning"
+          },
+          {
+            "type": "Console",
+            "level": "Info",
+            "maxLevel": "Info",
+            "includes": [
+              
+            ]
           },
           {
             "type": "File",

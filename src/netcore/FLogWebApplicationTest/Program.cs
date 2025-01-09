@@ -16,7 +16,7 @@ namespace FLogWebApplicationTest
     {
         public static void Main(string[] args){
             //Log Configure
-            LogManager.Configure(Path.Combine(Directory.GetCurrentDirectory(), "flog.json"), true);
+            //LogManager.Configure(Path.Combine(Directory.GetCurrentDirectory(), "flog.json"), true);
 
             CreateWebHostBuilder(args).Build().Run();
         }
@@ -25,7 +25,10 @@ namespace FLogWebApplicationTest
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging((hostBuilder, configureLogging) => {
                     configureLogging.ClearProviders();
-                    configureLogging.AddFLog();
+                    configureLogging.AddFLog((configuration) => {
+                        configuration.JsonFilePath =Path.Combine(Directory.GetCurrentDirectory(), "flog.json");
+                        configuration.JsonFileReloadOnChange = true;
+                    });
                 })
                 .UseStartup<Startup>();
     }

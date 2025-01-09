@@ -6,6 +6,7 @@ namespace FLog.Handlers
     public interface ILogHandler
     {
         LogLevel Level{ get; set; }
+        LogLevel MaxLevel{ get; set; }
         List<string> Includes{ get; set; }
         List<string> Excludes{ get; set; }
         LogFormatter Formatter{ get; set; }
